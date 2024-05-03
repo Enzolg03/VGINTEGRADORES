@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{layout::head}">
+</head>
+<body>
+
+<script th:src="@{/scripts/web/administracion/frmusuario.js}"
+        type="text/javascript"></script>
+
+<nav th:replace="~{layout::menu}" ></nav>
+<div class="card">
+    <div class="card-header">
+        Lista de Usuarios
+    </div>
+    <div class="card-body">
+        <button id="btnnuevo" type="button" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Nuevo
+        </button>
+        <table id="tblusuario" class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">Nombre de usuario</th>
+                <th scope="col">Correo electrónico</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Rol</th>
+                <th>Actualizar</th>
+                <th>Eliminar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="usuario: ${listausuario}">
+                <td th:text="${usuario.nomusuario}"></td>
+                <td th:text="${usuario.email}"></td>
+                <td th:text="${usuario.nombres}"></td>
+                <td th:text="${usuario.apellidos}"></td>
+                <td th:text="${usuario.roles.iterator().next().descrol}"></td>
+                <td >
+                    <button type="button" class="btn btn-info btnactualizar"
+                            th:data-idusuario="${usuario.idusuario}"
+                            th:data-nomusuario="${usuario.nomusuario}"
+                            th:data-email="${usuario.email}"
+                            th:data-nombres="${usuario.nombres}"
+                            th:data-apellidos="${usuario.apellidos}"
+                            th:data-rol="${usuario.roles.iterator().next().descrol}">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                </td>
+                <td >
+                    <button type="button" class="btn btn-danger btneliminar"
+                            th:data-idusuario="${usuario.idusuario}"
+                            th:data-nomusuario="${usuario.nomusuario}"
+                            th:data-email="${usuario.email}"
+                            th:data-nombres="${usuario.nombres}"
+                            th:data-apellidos="${usuario.apellidos}"
+                            th:data-rol="${usuario.roles.iterator().next().descrol}">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalusuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="usuario_form" class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Mantenimiento Usuario</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="txtnomusuario" class="form-label">Nombre de usuario:</label>
+                    <input type="text" class="form-control" id="txtnomusuario" name="txtnomusuario"
+                           placeholder="Ingrese Nombre de usuario">
+                    <label for="txtemail" class="form-label">Correo electrónico:</label>
+                    <input type="text" class="form-control" id="txtemail" name="txtemail"
+                           placeholder="Ingrese Correo electrónico">
+                    <label for="txtpassword" class="form-label">Contraseña:</label>
+                    <input type="password" class="form-control" id="txtpassword" name="txtpassword"
+                           placeholder="Ingrese Contraseña">
+                    <label for="txtnombres" class="form-label">Nombres:</label>
+                    <input type="text" class="form-control" id="txtnombres" name="txtnombres"
+                           placeholder="Ingrese Nombres">
+                    <label for="txtapellidos" class="form-label">Apellidos:</label>
+                    <input type="text" class="form-control" id="txtapellidos" name="txtapellidos"
+                           placeholder="Ingrese Apellidos">
+                    <label for="rol" class="form-label">Rol</label>
+                    <select class="form-control" id="rol" name="rol">
+                        <option th:each="rol : ${roles}" th:value="${rol.descrol}" th:text="${rol.descrol}"></option>
+                    </select>
+                    <input type="hidden" id="hddidusuario" value="0">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Cerrar</button>
+                <button id="btnguardar" type="button" class="btn btn-primary">
+                    <i class="bi bi-cloud-download-fill"></i> Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Modal para eliminar usuario -->
+<div class="modal fade" id="modaleliminarusuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Eliminar Usuario</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label id="lblmensajeeliminar"></label>
+                <input type="hidden" value="0" id="hddidusuarioeliminar">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Cerrar</button>
+                <button id="btneliminar" type="button" class="btn btn-primary">
+                    <i class="bi bi-cloud-download-fill"></i> Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/scripts/lib/notiflix-aio-3.2.6.min.js}"></script>
+<script th:src="@{/scripts/jquery/jquery.validate.min.js}"></script>
+<script>
+    $("#usuario_form").validate({
+        rules: {
+            txtnomusuario: {
+                required: true,
+                minlength: 2
+            },
+            txtemail: {
+                required: true,
+                email: true
+            },
+            txtpassword: {
+                required: true,
+                minlength: 2
+            },
+            txtnombres: {
+                required: true,
+                minlength: 2
+            },
+            txtapellidos: {
+                required: true,
+                minlength: 2
+            },
+            rol: {
+                required: true
+            }
+        },
+        messages: {
+            txtnomusuario: {
+                required: "Por favor, introduce un nombre de usuario",
+                minlength: "El nombre de usuario debe tener al menos 2 caracteres"
+            },
+            txtemail: {
+                required: "Por favor, introduce un correo electrónico",
+                email: "Por favor, introduce un correo electrónico válido"
+            },
+            txtpassword: {
+                required: "Por favor, introduce una contraseña",
+                minlength: "La contraseña debe tener al menos 2 caracteres"
+            },
+            txtnombres: {
+                required: "Por favor, introduce los nombres",
+                minlength: "Los nombres deben tener al menos 2 caracteres"
+            },
+            txtapellidos: {
+                required: "Por favor, introduce los apellidos",
+                minlength: "Los apellidos deben tener al menos 2 caracteres"
+            },
+            rol: {
+                required: "Por favor, selecciona un rol"
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

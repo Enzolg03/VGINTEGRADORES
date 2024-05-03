@@ -31,28 +31,33 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity)
-        throws Exception{
-        //Desabilitamos Cors con está intrucción
+            throws Exception{
         httpSecurity.csrf(csrf -> csrf.disable())
-                //Luego continua lo demás
                 .authorizeHttpRequests(
                         auth ->
                                 auth.requestMatchers("/auth/login",
-                                        "/auth/registrar",
-                                        "/auth/guardarusuario",
-                                        "/resources/**",
-                                        "/static/**",
-                                        "/styles/**",
-                                        "/scripts/**").permitAll()
+                                                "/auth/registrar",
+                                                "/auth/guardarusuario",
+                                                "/resources/**",
+                                                "/static/**",
+                                                "/styles/**",
+                                                "/scripts/**").permitAll()
+                                        .requestMatchers("/auth/frmusuario",
+                                                "/administracion/estado/frmestado",
+                                                "/administracion/rol/frmrol").hasRole("ADMIN")
                                         .anyRequest().authenticated()
                 )
                 .formLogin(
                         login ->
                                 login.loginPage("/auth/login")
                                         .defaultSuccessUrl("/auth/login-success")
-                                        .usernameParameter("nomusuario")
+                                        .usernameParameter("username")
                                         .passwordParameter("password")
-
+                )
+                .logout(
+                        logout ->
+                                logout.logoutUrl("/auth/logout")
+                                        .logoutSuccessUrl("/auth/login")
                 )
                 .authenticationProvider(authenticationProvider());
         return httpSecurity.build();

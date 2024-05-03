@@ -11,16 +11,18 @@ import java.util.Set;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idusuario;
+    private Integer idusuario;
     @Column(name = "nombres")
     private String nombres;
     @Column(name = "apellidos")
     private String apellidos;
+    @Column(name = "email")
+    private String email;
     @Column(name = "nomusuario")
     private String nomusuario;
     @Column(name = "password")
     private String password;
-    @Column (name = "estadousuario")
+    @Column(name = "activo")
     private boolean activo;
     @ManyToMany(cascade = CascadeType.MERGE,
             fetch = FetchType.EAGER)

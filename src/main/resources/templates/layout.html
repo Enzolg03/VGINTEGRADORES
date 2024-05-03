@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
     <meta charset="UTF-8">
     <title>Title</title>
@@ -23,12 +23,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
                 </li>
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown"  sec:authorize="hasRole('ROLE_ADMIN')">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Adminsitración
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Usuarios</a></li>
+                        <li><a class="dropdown-item"  th:href="@{/auth/frmusuario}">Gestión de Usuarios</a></li>
                         <li><a class="dropdown-item" th:href="@{/administracion/estado/frmestado}">Estados</a></li>
                         <li><a class="dropdown-item" th:href="@{/administracion/rol/frmrol}">Roles</a></li>
                     </ul>
@@ -47,10 +47,11 @@
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/auth/logout}">Cerrar Sesión</a>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
