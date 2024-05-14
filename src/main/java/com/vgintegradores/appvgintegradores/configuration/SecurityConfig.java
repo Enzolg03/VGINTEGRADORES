@@ -43,7 +43,7 @@ public class SecurityConfig {
                                                 "/styles/**",
                                                 "/scripts/**").permitAll()
                                         .requestMatchers("/auth/frmusuario",
-                                                "/administracion/estado/frmestado",
+                                                  "/administracion/estado/frmestado",
                                                 "/administracion/rol/frmrol").hasRole("ADMIN")
                                         .anyRequest().authenticated()
                 )

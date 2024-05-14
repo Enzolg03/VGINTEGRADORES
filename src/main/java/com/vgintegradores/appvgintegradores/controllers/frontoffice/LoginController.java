@@ -34,8 +34,6 @@ public class LoginController {
         return "redirect:/home";
     }
 
-
-    // USUARIO
     @GetMapping("/frmusuario")
     public String index(Model model){
         model.addAttribute("listausuario", usuarioService.listarUsuarios());

@@ -3,6 +3,7 @@ $(document).on("click", "#btnnuevo", function(){
     $("#usuario_form").find('.error').removeClass('error');
     $("#txtnombres").val("");
     $("#txtapellidos").val("");
+    $("#txtemail").val("");
     $("#txtnomusuario").val("");
     $("#txtpassword").val("");
     $("#rol").val("");
@@ -15,10 +16,12 @@ $(document).on("click", ".btnactualizar", function(){
     $("#usuario_form").find('.error').removeClass('error');
     $("#txtnombres").val($(this).attr("data-nombres"));
     $("#txtapellidos").val($(this).attr("data-apellidos"));
-    $("#modalusuario").modal("show");
+    $("#txtemail").val($(this).attr("data-email"));
     $("#txtnomusuario").val($(this).attr("data-nomusuario"));
+    $("#txtpassword").val($(this).attr("data-password"));
     $("#rol").val($(this).attr("data-rol"));
     $("#hddidusuario").val($(this).attr("data-idusuario"));
+    $("#modalusuario").modal("show");
 });
 
 $(document).on("click", "#btnguardar", function(){
@@ -31,6 +34,7 @@ $(document).on("click", "#btnguardar", function(){
         data: {
             idusuario: $("#hddidusuario").val(),
             nombres: $("#txtnombres").val(),
+            email: $("#txtemail").val(),
             apellidos: $("#txtapellidos").val(),
             nomusuario: $("#txtnomusuario").val(),
             password: $("#txtpassword").val(),
@@ -58,6 +62,7 @@ function listarUsuarios(){
             $.each(resultado, function(index, value){
                 $("#tblusuario > tbody").append("<tr>" +
                     "<td>"+value.nomusuario+"</td>" +
+                    "<td>"+value.email+"</td>" +
                     "<td>"+value.nombres+"</td>" +
                     "<td>"+value.apellidos+"</td>" +
                     "<td>"+value.roles[0].descrol+"</td>" +

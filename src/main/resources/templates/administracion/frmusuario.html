@@ -25,7 +25,6 @@
                 <th scope="col">Apellidos</th>
                 <th scope="col">Rol</th>
                 <th>Actualizar</th>
-                <th>Eliminar</th>
             </tr>
             </thead>
             <tbody>
@@ -40,21 +39,11 @@
                             th:data-idusuario="${usuario.idusuario}"
                             th:data-nomusuario="${usuario.nomusuario}"
                             th:data-email="${usuario.email}"
+                            th:data-password="${usuario.password}"
                             th:data-nombres="${usuario.nombres}"
                             th:data-apellidos="${usuario.apellidos}"
                             th:data-rol="${usuario.roles.iterator().next().descrol}">
                         <i class="bi bi-pencil-square"></i>
-                    </button>
-                </td>
-                <td >
-                    <button type="button" class="btn btn-danger btneliminar"
-                            th:data-idusuario="${usuario.idusuario}"
-                            th:data-nomusuario="${usuario.nomusuario}"
-                            th:data-email="${usuario.email}"
-                            th:data-nombres="${usuario.nombres}"
-                            th:data-apellidos="${usuario.apellidos}"
-                            th:data-rol="${usuario.roles.iterator().next().descrol}">
-                        <i class="bi bi-trash"></i>
                     </button>
                 </td>
             </tr>

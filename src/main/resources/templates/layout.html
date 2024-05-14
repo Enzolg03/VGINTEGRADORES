@@ -21,9 +21,9 @@
                     <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" th:href="@{/clientes/cliente/frmcliente}">Clientes</a>
                 </li>
-                <li class="nav-item dropdown"  sec:authorize="hasRole('ROLE_ADMIN')">
+                <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Adminsitración
                     </a>
@@ -38,10 +38,19 @@
                         Gestión Productos
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Productos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/productos/producto/frmproducto}">Productos</a></li>
                         <li><a class="dropdown-item" th:href="@{/productos/marca/frmmarca}">Marcas</a></li>
                         <li><a class="dropdown-item" th:href="@{/productos/categoria/frmcategoria}">Categorias</a></li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/cotizaciones/frmcotizaciones}">Cotizaciones</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/paises/frmpais}">Pais</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/proveedores/frmproveedor}">Proveedor</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>

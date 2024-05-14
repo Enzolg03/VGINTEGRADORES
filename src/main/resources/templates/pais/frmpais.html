@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{layout::head}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script th:src="@{/scripts/web/paises/frmpais.js}"></script>
+<nav th:replace="~{layout::menu}" ></nav>
+<div class="card">
+    <div class="card-header">
+        Lista de paiss
+    </div>
+    <div class="card-body">
+        <button id="btnnuevo" type="button" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Nuevo
+        </button>
+        <table id="tblpais" class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">ID de Pais</th>
+                <th scope="col">Nombre de Pais</th>
+                <th>Actualizar</th>
+                <th>Eliminar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pais: ${listaPaises}">
+                <td th:text="${pais.idpais}"></td>
+                <td th:text="${pais.nompais}"></td>
+                <td>
+                    <button type="button" class="btn btn-info btnactualizar"
+                            th:data-idpais="${pais.idpais}"
+                            th:data-nompais="${pais.nompais}">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger btneliminar"
+                            th:data-idpais="${pais.idpais}"
+                            th:data-nompais="${pais.nompais}">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalpais" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="pais_form" class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Mantenimiento País</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="txtnompais" class="form-label">Nombre de país:</label>
+                    <input type="text" class="form-control" id="txtnompais" name="txtnompais"
+                           placeholder="Ingrese Nombre de pais">
+                    <input type="hidden" id="hddidpais" value="0">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Cerrar</button>
+                <button id="btnguardar" type="button" class="btn btn-primary">
+                    <i class="bi bi-cloud-download-fill"></i> Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Modal para eliminar pais -->
+<div class="modal fade" id="modaleliminarpais" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Eliminar país</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label id="lblmensajeeliminar"></label>
+                <input type="hidden" value="0" id="hddidpaiseliminar">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Cerrar</button>
+                <button id="btneliminar" type="button" class="btn btn-primary">
+                    <i class="bi bi-cloud-download-fill"></i> Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/scripts/lib/notiflix-aio-3.2.6.min.js}"></script>
+<script th:src="@{/scripts/jquery/jquery.validate.min.js}"></script>
+<script>
+    $("#pais_form").validate({
+        rules: {
+            txtnompais: {
+                required: true,
+                minlength: 2
+            }
+        },
+        messages: {
+            txtnompais: {
+                required: "Por favor, introduce un nombre de pais",
+                minlength: "El nombre de pais debe tener al menos 2 caracteres"
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{layout::head}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script th:src="@{/scripts/web/productos/frmproducto.js}"></script>
+<nav th:replace="~{layout::menu}"></nav>
+<div class="container">
+    <h1>Lista de Productos</h1>
+    <button id="btnnuevo" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Nuevo
+    </button>
+    <table id="tblproducto" class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Imagen</th>
+            <th scope="col">Id Producto</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Actualizar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="producto:${listaProductos}">
+            <th th:text="${producto.imagen}" scope="row"></th>
+            <th th:text="${producto.idproducto}" scope="row"></th>
+            <td th:text="${producto.nomproducto}"></td>
+            <td th:text="${producto.descproducto}"></td>
+            <td th:text="${producto.categoria.desccategoria}"></td>
+            <td th:text="${producto.marca.descmarca}"></td>
+            <td th:text="${producto.estado.descestado}"></td>
+            <td th:text="${producto.stock}"></td>
+            <td th:text="${producto.precio}"></td>
+            <td>
+                <button class="btn btn-info btnactualizar"
+                        th:data-imagen="${producto.imagen}"
+                        th:data-idproducto="${producto.idproducto}"
+                        th:data-nomproducto="${producto.nomproducto}"
+                        th:data-descproducto="${producto.descproducto}"
+                        th:data-idcategoria="${producto.categoria.idcategoria}"
+                        th:data-idmarca="${producto.marca.idmarca}"
+                        th:data-idestado="${producto.estado.idestado}"
+                        th:data-stock="${producto.stock}"
+                        th:data-precio="${producto.precio}">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="modalproducto" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Nuevo Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="txtnomproducto" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="txtnomproducto">
+                <label for="txtdescripcion" class="form-label">Descripción</label>
+                <input type="text" class="form-control" id="txtdescripcion">
+                <label for="cbocategoria" class="form-label">Categoria:</label>
+                <select id="cbocategoria" class="form-select"
+                        aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                </select>
+                <label for="cbomarca" class="form-label">Marca:</label>
+                <select id="cbomarca" class="form-select"
+                        aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                </select>
+                <label for="cboestado" class="form-label">Estado:</label>
+                <select id="cboestado" class="form-select"
+                        aria-label="Default select example">
+                    <option selected>Open this select menu</option>
+                </select>
+                <label for="txtstock" class="form-label">Stock</label>
+                <input type="text" class="form-control" id="txtstock">
+                <label for="txtprecio" class="form-label">Precio</label>
+                <input type="text" class="form-control" id="txtprecio">
+                <label for="image" class="form-label">Imagen</label>
+                <input type="text" class="form-control" id="image" name="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload" required="required">
+                <input type="hidden" class="form-control" id="hddnidproducto">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Cerrar
+                </button>
+                <button id="btnguardar" type="button" class="btn btn-primary">
+                    <i class="bi bi-floppy"></i> Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
