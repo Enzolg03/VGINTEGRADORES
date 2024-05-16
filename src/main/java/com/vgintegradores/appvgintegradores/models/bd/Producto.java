@@ -23,7 +23,7 @@ public class Producto {
     @JoinColumn(name = "estado")
     private Estado estado;
     @Column(name = "stock")
-    private int stock ;
+    private int stock;
     @Column(name = "precio")
     private double precio;
     @Column(name = "imagen")

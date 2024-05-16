@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="~{layout::head}">
+<head th:replace="~{layout::head (pageTitle='Clientes')}">
 </head>
 <body>
 <script th:src="@{/scripts/web/clientes/frmcliente.js}"></script>
@@ -66,30 +66,42 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="mb-3">
+                <div class="mb-0">
                     <label for="txtnroruc" class="form-label">Nro de RUC:</label>
                     <input type="text" class="form-control" id="txtnroruc" name="txtnroruc"
                            placeholder="Ingrese Nro  de RUC">
+                </div>
+                <div class="mb-0">
                     <label for="txtnomempresa" class="form-label">Nombre de Empresa:</label>
                     <input type="text" class="form-control" id="txtnomempresa" name="txtnomempresa"
                            placeholder="Ingrese Nombre de Empresa">
+                </div>
+                <div class="mb-0">
                     <label for="txtnomcliente" class="form-label">Nombre de cliente:</label>
                     <input type="text" class="form-control" id="txtnomcliente" name="txtnomcliente"
                            placeholder="Ingrese Nombre de cliente">
+                </div>
+                <div class="mb-0">
                     <label for="txtdireccion" class="form-label">Dirección:</label>
                     <input type="text" class="form-control" id="txtdireccion" name="txtdireccion"
                            placeholder="Ingrese Dirección">
+                </div>
+                <div class="mb-0">
                     <label for="txttelefono" class="form-label">Telefono:</label>
                     <input type="text" class="form-control" id="txttelefono" name="txttelefono"
                            placeholder="Ingrese Teléfono">
+                </div>
+                <div class="mb-0">
                     <label for="txtcorreo" class="form-label">Correo electrónico:</label>
                     <input type="email" class="form-control" id="txtcorreo" name="txtcorreo"
                            placeholder="Ingrese Correo electrónico">
+                </div>
+                <div class="mb-0">
                     <label for="txtlogo" class="form-label">Logo:</label>
                     <input type="text" class="form-control" id="txtlogo" name="txtlogo"
-                           placeholder="Ingrese Lgo">
-                    <input type="hidden" id="hddidcliente" value="0">
+                           placeholder="Ingrese Logo">
                 </div>
+                    <input type="hidden" id="hddidcliente" value="0">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -102,69 +114,5 @@
 </div>
 <script th:src="@{/scripts/lib/notiflix-aio-3.2.6.min.js}"></script>
 <script th:src="@{/scripts/jquery/jquery.validate.min.js}"></script>
-<script>
-    $("#cliente_form").validate({
-        rules: {
-            txtnroruc: {
-                required: true,
-                minlength: 11
-            },
-            txtnomempresa: {
-                required: true,
-                minlength: 2
-            },
-            txtnomcliente: {
-                required: true,
-                minlength: 2
-            },
-            txtdireccion: {
-                required: true,
-                minlength: 2
-            },
-            txtcorreo: {
-                required: true,
-                email: true
-            },
-            txttelefono: {
-                required: true,
-                minlength: 9
-            },
-            txtlogo: {
-                required: true,
-                minlength: 2
-            }
-        },
-        messages: {
-            txtnroruc: {
-                required: "Por favor, introduce un nombre de cliente",
-                minlength: "El número de ruc debe tener 11 dígitos"
-            },
-            txtnomemprese: {
-                required: "Por favor, introduce un nombre de emprese",
-                minlength: "El nombre de emprese debe tener al menos 2 caracteres"
-            },
-            txtnomcliente: {
-                required: "Por favor, introduce un nombre de cliente",
-                minlength: "El nombre de cliente debe tener al menos 2 caracteres"
-            },
-            txtdireccion: {
-                required: "Por favor, introduce dirección",
-                minlength: "La dirección deben tener al menos 2 caracteres"
-            },
-            txttelefono: {
-                required: "Por favor, introduce un telefono",
-                minlength: "La contraseña debe tener al menos 9 caracteres"
-            },
-            txtcorreo: {
-                required: "Por favor, introduce un correo electrónico",
-                email: "Por favor, introduce un correo electrónico válido"
-            },
-            txtlogo: {
-                required: "Por favor, introduce el logo",
-                minlength: "El logo deben tener al menos 2 caracteres"
-            },
-        }
-    });
-</script>
 </body>
 </html>

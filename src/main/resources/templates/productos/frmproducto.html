@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="~{layout::head}">
+<head th:replace="~{layout::head (pageTitle='Productos')}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -8,7 +8,7 @@
 <script th:src="@{/scripts/web/productos/frmproducto.js}"></script>
 <nav th:replace="~{layout::menu}"></nav>
 <div class="container">
-    <h1>Lista de Productos</h1>
+    <h1 class="txt">Lista de Productos</h1>
     <button id="btnnuevo" class="btn btn-primary">
         <i class="bi bi-plus-circle"></i> Nuevo
     </button>
@@ -58,37 +58,51 @@
 </div>
 <div id="modalproducto" class="modal" tabindex="-1">
     <div class="modal-dialog">
+        <form id="producto_form" class="modal-content">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Nuevo Producto</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <label for="txtnomproducto" class="form-label">Nombre</label>
-                <input type="text" class="form-control" id="txtnomproducto">
-                <label for="txtdescripcion" class="form-label">Descripción</label>
-                <input type="text" class="form-control" id="txtdescripcion">
-                <label for="cbocategoria" class="form-label">Categoria:</label>
-                <select id="cbocategoria" class="form-select"
-                        aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                </select>
+                <div class="mb-0">
+                    <label for="txtnomproducto" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="txtnomproducto" name="txtnomproducto">
+                </div>
+                <div class="mb-0">
+                    <label for="txtdescripcion" class="form-label">Descripción</label>
+                    <input type="text" class="form-control" id="txtdescripcion" name="txtdescripcion">
+                </div>
+                <div class="mb-0">
+                    <label for="cbocategoria" class="form-label">Categoria:</label>
+                    <select id="cbocategoria" class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                    </select>
+                </div>
+                <div class="mb-0">
                 <label for="cbomarca" class="form-label">Marca:</label>
-                <select id="cbomarca" class="form-select"
-                        aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                </select>
+                    <select id="cbomarca" class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                    </select>
+                </div>
+                <div class="mb-0">
                 <label for="cboestado" class="form-label">Estado:</label>
-                <select id="cboestado" class="form-select"
-                        aria-label="Default select example">
-                    <option selected>Open this select menu</option>
-                </select>
-                <label for="txtstock" class="form-label">Stock</label>
-                <input type="text" class="form-control" id="txtstock">
-                <label for="txtprecio" class="form-label">Precio</label>
-                <input type="text" class="form-control" id="txtprecio">
-                <label for="image" class="form-label">Imagen</label>
-                <input type="text" class="form-control" id="image" name="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload" required="required">
+                    <select id="cboestado" class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                    </select>
+                </div>
+                <div class="mb-0">
+                    <label for="txtstock" class="form-label">Stock</label>
+                    <input type="text" class="form-control" id="txtstock" name="txtstock">
+                </div>
+                <div class="mb-0">
+                    <label for="txtprecio" class="form-label">Precio</label>
+                    <input type="text" class="form-control" id="txtprecio" name="txtprecio">
+                </div>
+                <div class="mb-0">
+                    <label for="image" class="form-label">Imagen</label>
+                    <input type="text" class="form-control" id="image" name="image">
+                </div>
                 <input type="hidden" class="form-control" id="hddnidproducto">
             </div>
             <div class="modal-footer">
@@ -100,7 +114,10 @@
                 </button>
             </div>
         </div>
+        </form>
     </div>
 </div>
+<script th:src="@{/scripts/lib/notiflix-aio-3.2.6.min.js}"></script>
+<script th:src="@{/scripts/jquery/jquery.validate.min.js}"></script>
 </body>
 </html>

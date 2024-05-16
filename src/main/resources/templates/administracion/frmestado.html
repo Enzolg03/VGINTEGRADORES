@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="~{layout::head}">
+<head th:replace="~{layout::head (pageTitle='Estados')}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <script th:src="@{/scripts/web/administracion/frmestado.js}"></script>
+<script th:src="@{/scripts/lib/notiflix-aio-3.2.6.min.js}"></script>
+<script th:src="@{/scripts/jquery/jquery.validate.min.js}"></script>
     <nav th:replace="~{layout::menu}"></nav>
 <div class="container">
     <h1>Lista de Estados</h1>
@@ -45,6 +47,7 @@
 </div>
     <div id="modalestado" class="modal" tabindex="-1">
         <div class="modal-dialog">
+            <form id="estado_form" class="modal-content">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Nuevo Estado</h5>
@@ -52,7 +55,7 @@
                 </div>
                 <div class="modal-body">
                     <label for="txtdescripcion" class="form-label">Descripción</label>
-                    <input type="text" class="form-control" id="txtdescripcion">
+                    <input type="text" class="form-control" id="txtdescripcion" name="txtdescripcion">
                     <input type="hidden" class="form-control" id="hddnidestado">
                 </div>
                 <div class="modal-footer">
@@ -64,6 +67,7 @@
                     </button>
                 </div>
             </div>
+            </form>
         </div>
     </div>
     <div id="modalestadoeliminar" class="modal" tabindex="-1">

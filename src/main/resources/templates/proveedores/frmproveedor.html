@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="~{layout::head}">
+<head th:replace="~{layout::head (pageTitle='Proveedor')}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -21,6 +21,7 @@
             <th scope="col">Dirección</th>
             <th scope="col">Teléfono</th>
             <th scope="col">Correo</th>
+            <th scope="col">Productos</th>
         </tr>
         </thead>
         <tbody>
@@ -31,6 +32,15 @@
             <td th:text="${proveedor.direccion}"></td>
             <td th:text="${proveedor.telefono}"></td>
             <td th:text="${proveedor.correo}"></td>
+            <!-- Agrega esta columna a tu tabla -->
+            <td>
+                <button class="btn btn-info btn-ver-productos"
+                        th:data-idproveedor="${proveedor.idproveedor}">
+                    Ver Productos
+                </button>
+
+            </td>
+
             <td>
                 <button class="btn btn-info btnactualizar"
                         th:data-idproveedor="${proveedor.idproveedor}"
@@ -38,7 +48,9 @@
                         th:data-pais="${proveedor.pais.idpais}"
                         th:data-direccion="${proveedor.direccion}"
                         th:data-telefono="${proveedor.telefono}"
-                        th:data-correo="${proveedor.correo}">
+                        th:data-correo="${proveedor.correo}"
+                        th:data-rol="${proveedor.productos.iterator().next().nomproducto}"
+                        >
                     <i class="bi bi-pencil-square"></i>
                 </button>
             </td>
@@ -55,19 +67,34 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <label for="txtnomproveedor" class="form-label">Nombre Proveedor</label>
-                <input type="text" class="form-control" id="txtnomproveedor">
+                <div class="mb-0">
+                    <label for="txtnomproveedor" class="form-label">Nombre Proveedor</label>
+                    <input type="text" class="form-control" id="txtnomproveedor" name="txtnomproveedor">
+                </div>
+                <div class="mb-0">
                 <label for="cbopais" class="form-label">País:</label>
-                <select id="cbopais" class="form-select"
-                        aria-label="Default select example">
+                <select id="cbopais" class="form-select" aria-label="Default select example" name="cbopais">
                     <option selected>Open this select menu</option>
                 </select>
-                <label for="txtdireccion" class="form-label">Dirección</label>
-                <input type="text" class="form-control" id="txtdireccion">
-                <label for="txttelefono" class="form-label">Teléfono</label>
-                <input type="text" class="form-control" id="txttelefono">
-                <label for="txtcorreo" class="form-label">Correo</label>
-                <input type="text" class="form-control" id="txtcorreo">
+                </div>
+                <div class="mb-0">
+                    <label for="txtdireccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="txtdireccion" name="txtdireccion">
+                </div>
+                <div class="mb-0">
+                    <label for="txttelefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="txttelefono" name="txttelefono">
+                </div>
+                <div class="mb-0">
+                    <label for="txtcorreo" class="form-label">Correo</label>
+                    <input type="text" class="form-control" id="txtcorreo" name="txtcorreo">
+                </div>
+                <div class="mb-0">
+                    <label for="producto" class="form-label">Productos</label>
+                    <select class="form-control" id="producto" name="producto">
+                    <option th:each="producto : ${productos}" th:value="${producto.nomproducto}" th:text="${producto.nomproducto}"></option>
+                </select>
+                </div>
                 <input type="hidden" class="form-control" id="hddnidproveedor">
             </div>
             <div class="modal-footer">
@@ -82,53 +109,24 @@
         </form>
     </div>
 </div>
+<div id="modalProductos" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Productos del Proveedor</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Aquí se mostrarán los productos del proveedor -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script th:src="@{/scripts/lib/notiflix-aio-3.2.6.min.js}"></script>
 <script th:src="@{/scripts/jquery/jquery.validate.min.js}"></script>
-<script>
-    $("#proveedor_form").validate({
-        rules: {
-            txtnomproveedor: {
-                required: true,
-                minlength: 2
-            },
-            cbopais: {
-                required: true,
-            },
-            txtdireccion: {
-                required: true,
-                minlength: 2
-            },
-            txttelefono: {
-                required: true,
-                minlength: 2
-            },
-            txtcorreo: {
-                required: true,
-                minlength: 2
-            }
-        },
-        messages: {
-            txtnomproveedor: {
-                required: "Por favor, introduce un nombre de proveedor",
-                minlength: "El nombre de proveedor debe tener al menos 2 caracteres"
-            },
-            txtpais: {
-                required: "Por favor, selecione un país",
-            },
-            txttelefono: {
-                required: "Por favor, introduce una ciudad",
-                minlength: "La telefono debe tener al menos 2 caracteres"
-            },
-            txtdireccion: {
-                required: "Por favor, introduce una ciudad",
-                minlength: "La contraseña debe tener al menos 2 caracteres"
-            },
-            txtcorreo: {
-                required: "Por favor, introduce los nombres",
-                minlength: "Los nombres deben tener al menos 2 caracteres"
-            },
-        }
-    });
-</script>
 </body>
 </html>

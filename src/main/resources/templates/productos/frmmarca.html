@@ -5,7 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<script th:src="@{/scripts/web/administracion/frmmarca.js}"></script>
+<script th:src="@{/scripts/web/productos/frmmarca.js}"></script>
+<script th:src="@{/scripts/lib/notiflix-aio-3.2.6.min.js}"></script>
+<script th:src="@{/scripts/jquery/jquery.validate.min.js}"></script>
 <nav th:replace="~{layout::menu}"></nav>
 <div class="container">
     <h1>Lista de Marcas</h1>
@@ -45,25 +47,27 @@
 </div>
 <div id="modalmarca" class="modal" tabindex="-1">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Nuevo Marca</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <form id="marca_form" class="modal-content">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nuevo Marca</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label for="txtdescripcion" class="form-label">Descripción</label>
+                    <input type="text" class="form-control" id="txtdescripcion" name="txtdescripcion">
+                    <input type="hidden" class="form-control" id="hddnidmarca">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle"></i> Cerrar
+                    </button>
+                    <button id="btnguardar" type="button" class="btn btn-primary">
+                        <i class="bi bi-floppy"></i> Guardar
+                    </button>
+                </div>
             </div>
-            <div class="modal-body">
-                <label for="txtdescripcion" class="form-label">Descripción</label>
-                <input type="text" class="form-control" id="txtdescripcion">
-                <input type="hidden" class="form-control" id="hddnidmarca">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                    <i class="bi bi-x-circle"></i> Cerrar
-                </button>
-                <button id="btnguardar" type="button" class="btn btn-primary">
-                    <i class="bi bi-floppy"></i> Guardar
-                </button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
 <div id="modalmarcaeliminar" class="modal" tabindex="-1">

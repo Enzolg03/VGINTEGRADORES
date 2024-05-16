@@ -23,7 +23,7 @@ public class ClienteController {
     }
     @ResponseBody
     @PostMapping("/registrar")
-    public ResultadoResponse registrarClientes(@ModelAttribute ClienteDTO clienteDTO){
+    public ResultadoResponse registrarClientes(@RequestBody ClienteDTO clienteDTO){
         return clienteService.registrarCliente(clienteDTO);
     }
     @ResponseBody

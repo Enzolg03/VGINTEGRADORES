@@ -1,4 +1,70 @@
+$(document).ready(function() {
+    //VALIDACIONES
+    $("#producto_form").validate({
+        rules: {
+            txtnomproducto: {
+                required: true,
+                minlength: 2
+            },
+            txtdescripcion: {
+                required: true,
+                minlength: 2
+            },
+            cbocategoria: {
+                required: true
+            },
+            cbomarca: {
+                required: true
+            },
+            cboestado: {
+                required: true
+            },
+            txtstock: {
+                required: true,
+            },
+            txtprecio: {
+                required: true,
+                number: true,
+            },
+            image: {
+                required: true,
+                minlength: 2
+            }
+        },
+        messages: {
+            txtnomproducto: {
+                required: "Por favor, introduce un nombre de producto",
+                minlength: "La descripcion debe tener al menos 2 caracteres"
+            },
+            txtdescripcion: {
+                required: "Por favor, introduce una descripcion",
+                minlength: "La descripcion debe tener al menos 2 caracteres"
+            },
+            cbocategoria: {
+                required: "Por favor, seleccione una categoria",
+            },
+            cbomarca: {
+                required: "Por favor, seleccione una marca"
+            },
+            cboestado: {
+                required: "Por favor, seleccione un estado"
+            },
+            txtstock: {
+                required: "Por favor, introduce un stock"
+            },
+            txtprecio: {
+                required: "Por favor, introduce una precio",
+                number: "Por favor, ingrese números decimales"
+            },
+            image: {
+                required: "Por favor, introduce una descripcion",
+                minlength: "La descripcion debe tener al menos 2 caracteres"
+            }
+        }
+    });
 $(document).on('click','#btnnuevo', function(){
+    $("#producto_form").validate().resetForm();
+    $("#producto_form").find('.error').removeClass('error');
     $('#hddnidproducto').val("0")
     $('#txtnomproducto').val("");
     $('#txtdescripcion').val("");
@@ -45,6 +111,8 @@ $(document).on('click','#btnnuevo', function(){
 })
 
 $(document).on('click','.btnactualizar', function(){
+    $("#producto_form").validate().resetForm();
+    $("#producto_form").find('.error').removeClass('error');
     $('#hddnidproducto').val($(this).attr("data-idproducto"));
     $('#txtnomproducto').val($(this).attr("data-nomproducto"));
     $('#txtdescripcion').val($(this).attr("data-descproducto"));
@@ -97,6 +165,9 @@ $(document).on('click','.btnactualizar', function(){
 })
 
 $(document).on('click','#btnguardar', function(){
+    if (!$("#producto_form").valid()) {
+                return;
+        }
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -157,3 +228,4 @@ function listarProductos(){
         }
     })
 }
+});

@@ -1,3 +1,68 @@
+$(document).ready(function() {
+//VALIDACIONES
+$("#cliente_form").validate({
+        rules: {
+            txtnroruc: {
+                required: true,
+                minlength: 11
+            },
+            txtnomempresa: {
+                required: true,
+                minlength: 2
+            },
+            txtnomcliente: {
+                required: true,
+                minlength: 2
+            },
+            txtdireccion: {
+                required: true,
+                minlength: 2
+            },
+            txtcorreo: {
+                required: true,
+                email: true
+            },
+            txttelefono: {
+                required: true,
+                minlength: 9
+            },
+            txtlogo: {
+                required: true,
+                minlength: 2
+            }
+        },
+        messages: {
+            txtnroruc: {
+                required: "Por favor, introduce un nombre de cliente",
+                minlength: "El número de ruc debe tener 11 dígitos"
+            },
+            txtnomempresa: {
+                required: "Por favor, introduce un nombre de empresa",
+                minlength: "El nombre de empresa debe tener al menos 2 caracteres"
+            },
+            txtnomcliente: {
+                required: "Por favor, introduce un nombre de cliente",
+                minlength: "El nombre de cliente debe tener al menos 2 caracteres"
+            },
+            txtdireccion: {
+                required: "Por favor, introduce dirección",
+                minlength: "La dirección deben tener al menos 2 caracteres"
+            },
+            txttelefono: {
+                required: "Por favor, introduce un telefono",
+                minlength: "La contraseña debe tener al menos 9 caracteres"
+            },
+            txtcorreo: {
+                required: "Por favor, introduce un correo electrónico",
+                email: "Por favor, introduce un correo electrónico válido"
+            },
+            txtlogo: {
+                required: "Por favor, introduce el logo",
+                minlength: "El logo deben tener al menos 2 caracteres"
+            },
+        }
+    });
+//AGREGAR Y ACTUALIZAR
 $(document).on("click", "#btnnuevo", function(){
     $("#cliente_form").validate().resetForm();
     $("#cliente_form").find('.error').removeClass('error');
@@ -25,15 +90,16 @@ $(document).on("click", ".btnactualizar", function(){
     $("#txtlogo").val($(this).attr("data-logo"));
     $("#modalcliente").modal("show");
 });
-
+//ELIMINAR
 $(document).on("click", "#btnguardar", function(){
     if (!$("#cliente_form").valid()) {
         return;
     }
     $.ajax({
         type: "POST",
+        contentType: "application/json",
         url: "/clientes/cliente/registrar",
-        data: {
+        data: JSON.stringify({
             idcliente: $("#hddidcliente").val(),
             nroruc: $("#txtnroruc").val(),
             nomempresa: $("#txtnomempresa").val(),
@@ -42,7 +108,7 @@ $(document).on("click", "#btnguardar", function(){
             telefono: $("#txttelefono").val(),
             correo: $("#txtcorreo").val(),
             logo: $("#txtlogo").val(),
-        },
+        }),
         success: function(resultado){
             if(resultado.respuesta){
                 listarClientes();
@@ -54,7 +120,7 @@ $(document).on("click", "#btnguardar", function(){
         }
     })
 });
-
+//LISTAR
 function listarClientes(){
     $.ajax({
         type: "GET",
@@ -89,3 +155,4 @@ function listarClientes(){
         }
     })
 }
+});

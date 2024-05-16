@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="~{layout::head}">
+<head th:replace="~{layout::head (pageTitle='Paises')}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -95,22 +95,5 @@
 </div>
 <script th:src="@{/scripts/lib/notiflix-aio-3.2.6.min.js}"></script>
 <script th:src="@{/scripts/jquery/jquery.validate.min.js}"></script>
-<script>
-    $("#pais_form").validate({
-        rules: {
-            txtnompais: {
-                required: true,
-                minlength: 2
-            }
-        },
-        messages: {
-            txtnompais: {
-                required: "Por favor, introduce un nombre de pais",
-                minlength: "El nombre de pais debe tener al menos 2 caracteres"
-            }
-        }
-    });
-
-</script>
 </body>
 </html>

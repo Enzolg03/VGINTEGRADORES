@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="~{layout::head}">
+<head th:replace="~{layout::head (pageTitle='Cotizaciones')}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<script th:src="@{/scripts/web/cotizaciones/frmcotizaciones.js}"></script>
     <nav th:replace="~{layout::menu}"></nav>
     <div class="container">
         <h1>Cotizaciones</h1>
@@ -15,6 +16,204 @@
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        <div class="container text-center">
+            <div class="row align-items-start">
+                <div class="col">
+                    <h2>Proveedor de Servicios</h2>
+                    <button type="button" class="btn btn-primary">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <div class="row">
+                        <div class="col">
+                            <label>Nombre Empresa</label>
+                            <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                        </div>
+                        <div class="col">
+                            <label>Nro de RUC</label>
+                            <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Dirección</label>
+                            <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                        </div>
+                        <div class="col">
+                            <label>Teléfono 1</label>
+                            <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Teléfono 2</label>
+                            <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                        </div>
+                        <div class="col">
+                            <label>Correo</label>
+                            <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <h2>Cliente</h2>
+                    <button id="buscarCliente" type="button" class="btn btn-light">
+                        <i class="bi bi-search"></i>
+                    </button>
+                    <div class="row">
+                        <div class="col">
+                            <label>Nombre Empresa</label>
+                            <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                        </div>
+                        <div class="col">
+                            <label>Nro de RUC</label>
+                            <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Dirección</label>
+                            <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                        </div>
+                        <div class="col">
+                            <label>Teléfono 1</label>
+                            <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label>Teléfono 2</label>
+                            <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                        </div>
+                        <div class="col">
+                            <label>Correo</label>
+                            <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <button id="btnnuevoservicio" type="button" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Nuevo
+        </button>
+        <h3>Servicios</h3>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+            </tbody>
+        </table>
+        <h3>Productos</h3>
+        <button id="btnnuevo" type="button" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Nuevo
+        </button>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+            </tr>
+            </tbody>
+        </table>
+        <h3>Comentarios</h3>
+        <div class="form-floating">
+            <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea1" style="height: 100px"></textarea>
+            <label for="floatingTextarea1">Comments</label>
+        </div>
+        </div>
+
+<!-- Modal Produtcos-->
+<div class="modal fade" id="modalcliente" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="cliente_form" class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Mantenimiento cliente</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-0">
+                    <label for="txtnroruc" class="form-label">Nro de RUC:</label>
+                    <input type="text" class="form-control" id="txtnroruc" name="txtnroruc"
+                           placeholder="Ingrese Nro  de RUC">
+                </div>
+                <div class="mb-0">
+                    <label for="txtnomempresa" class="form-label">Nombre de Empresa:</label>
+                    <input type="text" class="form-control" id="txtnomempresa" name="txtnomempresa"
+                           placeholder="Ingrese Nombre de Empresa">
+                </div>
+                <div class="mb-0">
+                    <label for="floatingTextarea2" class="form-label">Detalle Servicios:</label>
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">Comments</label>
+                    </div>
+                </div>
+                <input type="hidden" id="hddidcliente" value="0">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Cerrar</button>
+                <button id="btnguardar" type="button" class="btn btn-primary">
+                    <i class="bi bi-cloud-download-fill"></i> Guardar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Modal Produtcos-->
+    <div class="modal" id="modalproductos" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">First</th>
+                            <th scope="col">Last</th>
+                            <th scope="col">Handle</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td>@mdo</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Agregar</button>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

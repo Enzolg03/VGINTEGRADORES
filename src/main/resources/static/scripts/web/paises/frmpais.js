@@ -1,3 +1,21 @@
+$(document).ready(function() {
+//VALIDACIONES
+$("#pais_form").validate({
+        rules: {
+            txtnompais: {
+                required: true,
+                minlength: 2
+            }
+        },
+        messages: {
+            txtnompais: {
+                required: "Por favor, introduce un nombre de pais",
+                minlength: "El nombre de pais debe tener al menos 2 caracteres"
+            }
+        }
+    });
+
+//AGREGAR Y ACTUALIZAR
 $(document).on("click", "#btnnuevo", function(){
     $("#pais_form").validate().resetForm();
     $("#pais_form").find('.error').removeClass('error');
@@ -40,6 +58,7 @@ $(document).on("click", "#btnguardar", function(){
         }
     })
 });
+//ELIMINAR
 $(document).on("click", "#btneliminar", function(){
     $.ajax({
         type: "DELETE",
@@ -58,7 +77,7 @@ $(document).on("click", "#btneliminar", function(){
         }
     })
 });
-
+//LISTAR
 function listarPaises(){
     $.ajax({
         type: "GET",
@@ -87,3 +106,4 @@ function listarPaises(){
         }
     })
 }
+});

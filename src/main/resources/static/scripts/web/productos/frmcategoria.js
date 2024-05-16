@@ -1,20 +1,39 @@
+$(document).ready(function() {
+//VALIDACIONES
+    $("#categoria_form").validate({
+        rules: {
+            txtdescripcion: {
+                required: true,
+                minlength: 2
+            }
+        },
+        messages: {
+            txtdescripcion: {
+                required: "Por favor, introduce una descripcion",
+                minlength: "La descripcion debe tener al menos 2 caracteres"
+            }
+        }
+    });
+    //AGREGAR Y ACTUALIZAR
 $(document).on('click','#btnnuevo', function(){
+    $("#categoria_form").validate().resetForm(),
+    $("#categoria_form").find('.error').removeClass('error'),
     $('#hddnidcategoria').val('0'),
     $('#txtdescripcion').val(''),
     $('#modalcategoria').modal('show')
 })
 $(document).on('click','.btnactualizar', function(){
+    $("#categoria_form").validate().resetForm(),
+    $("#categoria_form").find('.error').removeClass('error'),
     $('#hddnidcategoria').val($(this).attr('data-idcategoria')),
     $('#txtdescripcion').val($(this).attr('data-desccategoria')),
     $('#modalcategoria').modal('show')
 })
-$(document).on('click','.btneliminar', function(){
-    $('#lblmensajeeliminar').text("¿Seguro de eliminar la categoria "
-    + $(this).attr('data-desccategoria') + "?")
-    $('#hddnidcategoriaeliminar').val($(this).attr('data-idcategoria')),
-    $('#modalcategoriaeliminar').modal('show')
-})
+//AGREGAR Y ACTUALIZAR
 $(document).on('click','#btnguardar', function(){
+if (!$("#categoria_form").valid()) {
+        return;
+    }
     $.ajax({
         type: "POST",
         contentType: "application/json",
@@ -26,11 +45,20 @@ $(document).on('click','#btnguardar', function(){
         success:function(resultado){
             if(resultado.respuesta){
                 listarcategorias();
+                Notiflix.Notify.success(resultado.mensaje);
+            }else{
+                Notiflix.Notify.failure(resultado.mensaje);
             }
-            alert(resultado.mensaje),
             $('#modalcategoria').modal('hide')
         }
     })
+})
+//ELIMINAR
+$(document).on('click','.btneliminar', function(){
+    $('#lblmensajeeliminar').text("¿Seguro de eliminar la categoria "
+    + $(this).attr('data-desccategoria') + "?")
+    $('#hddnidcategoriaeliminar').val($(this).attr('data-idcategoria')),
+    $('#modalcategoriaeliminar').modal('show')
 })
 $(document).on('click','#btneliminar', function(){
     $.ajax({
@@ -43,8 +71,11 @@ $(document).on('click','#btneliminar', function(){
         success:function(resultado){
         if(resultado.respuesta){
             listarcategorias();
+            Notiflix.Notify.success(resultado.mensaje);
         }
-            alert(resultado.mensaje),
+        else{
+            Notiflix.Notify.failure(resultado.mensaje);
+        }
             $('#modalcategoriaeliminar').modal('hide')
         }
     })
@@ -76,3 +107,4 @@ function listarcategorias(){
         }
     })
 }
+});

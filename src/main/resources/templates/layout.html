@@ -2,9 +2,10 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title th:text="${pageTitle}">Title</title>
     <link rel="stylesheet" th:href="@{/styles/bootstrap/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/styles/font/bootstrap-icons.css}">
+    <link rel="stylesheet" th:href="@{/styles/css/styles.css}">
     <script th:src="@{/scripts/bootstrap/bootstrap.bundle.js}"></script>
     <script th:src="@{/scripts/jquery/jquery.js}"></script>
 </head>
@@ -23,7 +24,7 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/clientes/cliente/frmcliente}">Clientes</a>
                 </li>
-                <li class="nav-item dropdown" sec:authorize="hasRole('ROLE_ADMIN')">
+                <li class="nav-item dropdown" >
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Adminsitración
                     </a>
